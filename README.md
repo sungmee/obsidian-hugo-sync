@@ -1,30 +1,36 @@
 # Hugo Sync
 
-Obsidian 插件，一键同步笔记到 Hugo 博客，支持双链转换和图片链接转换。
+One-click sync from Obsidian to Hugo — wikilink conversion, image link conversion, and automatic file watching.
 
-## 功能
+一键同步 Obsidian 笔记到 Hugo 博客，支持双链转换、图片链接转换与文件自动监听。
 
-- **一键同步**：点击 ribbon 图标或命令面板，将 Obsidian 笔记同步到 Hugo content 目录
-- **双链转换**：`[[wikilink]]` 自动转为 Hugo 标准链接格式
-  - `posts/` 目录永远转换
-  - 非 posts 目录可在设置中独立开关
-- **图片链接转换**：`![[image.png]]` 自动转为标准 Markdown 图片链接
-- **文件监听**：源目录文件变更自动触发同步（可开关，带防抖）
-- **目录镜像**：保持 Obsidian 源目录与 Hugo content 目录结构完全一致
-- **删除确认**：源目录已删除的文件在同步时弹出确认对话框，防止误删
+---
 
-## 安装
+## Features · 功能
 
-### 从源码安装
+- **One-click sync** — click the ribbon icon or use the command palette to sync notes to Hugo's `content/` directory
+- **Wikilink conversion** — `[[wikilink]]` → Hugo standard link format
+  - `posts/` is always converted
+  - Non-posts directories have a separate toggle in settings
+- **Image link conversion** — `![[image.png]]` → standard Markdown image links
+- **File watching** — auto-sync on file change with configurable debounce (can be turned off)
+- **Directory mirroring** — source directory structure is mirrored exactly in Hugo's `content/`
+- **Delete confirmation** — when files are removed from source, a confirmation dialog prevents accidental deletion
+
+---
+
+## Installation · 安装
+
+### Build from source · 从源码构建
 
 ```bash
-git clone https://github.com/your-username/obsidian-hugo-sync.git
+git clone https://github.com/sungmee/obsidian-hugo-sync.git
 cd obsidian-hugo-sync
 npm install
 npm run build
 ```
 
-然后将 `main.js` 和 `manifest.json` 复制到 vault 的 `.obsidian/plugins/obsidian-hugo-sync/` 目录下：
+Then copy `main.js` and `manifest.json` into your vault's `.obsidian/plugins/obsidian-hugo-sync/`:
 
 ```
 .obsidian/plugins/obsidian-hugo-sync/
@@ -32,40 +38,42 @@ npm run build
 └── manifest.json
 ```
 
-在 Obsidian 设置 → 第三方插件中启用 **Hugo Sync**。
+Enable **Hugo Sync** in Settings → Community plugins.
 
-### 推荐：symlink 方式（方便开发迭代）
+### Symlink (recommended for development) · symlink 方式
 
 ```bash
 ln -s /path/to/obsidian-hugo-sync \
   "/path/to/vault/.obsidian/plugins/obsidian-hugo-sync"
 ```
 
-## 设置项
+---
 
-| 设置 | 默认值 | 说明 |
+## Settings · 设置项
+
+| Setting · 设置 | Default · 默认值 | Description · 说明 |
 |---|---|---|
-| 源目录 | （空） | vault 内 Hugo 文章源目录，如 `50-output/lxooo.com` |
-| Hugo content 目录 | （空） | Hugo 项目的 `content` 目录绝对路径 |
-| 非 posts 目录双链转换 | 关闭 | `about/`、`archives/`、`tags/` 等是否也转换 wikilink |
-| 永久链接格式 | `/:slug/` | wikilink 生成的 URL 格式，`:slug` 替换为文章 slug |
-| 图片基础链接 | （空） | 图片 CDN 或静态资源基础 URL，留空不转换图片 |
-| 文件监听 | 开启 | 源目录文件变更时自动同步 |
-| 防抖间隔 | 10 秒 | 文件变更后等待多少秒无新变更才触发同步 |
+| Source directory · 源目录 | *(empty)* | Hugo post source directory inside the vault, e.g. `50-output/lxooo.com` |
+| Hugo content directory · Hugo content 目录 | *(empty)* | Absolute path to your Hugo project's `content/` directory |
+| Convert non-posts wikilinks · 非 posts 目录双链转换 | Off | Whether to also convert wikilinks in `about/`, `archives/`, `tags/`, etc. |
+| Permalink format · 永久链接格式 | `/:slug/` | URL format for wikilink output; `:slug` is replaced with the post slug |
+| Image base URL · 图片基础链接 | *(empty)* | Base URL for image links; leave empty to skip image conversion |
+| File watching · 文件监听 | On | Auto-sync when files in the source directory change |
+| Debounce seconds · 防抖间隔 | `10` | Wait time (seconds) after the last change before triggering sync |
 
-### 永久链接格式
+### Permalink format · 永久链接格式
 
-`:slug` 作为占位符，会在转换时替换为文章实际的 slug。常见配置：
+Use `:slug` as a placeholder for the post slug.
 
-| Hugo 配置 | 格式 | 输出示例 |
+| Hugo permalink config | Format | Example output |
 |---|---|---|
-| `posts = '/:slug/'`（默认） | `/:slug/` | `[title](/my-post/)` |
+| `posts = '/:slug/'` (default) | `/:slug/` | `[title](/my-post/)` |
 | `posts = '/:slug.html'` | `/:slug.html` | `[title](/my-post.html)` |
 | `posts = '/posts/:slug/'` | `/posts/:slug/` | `[title](/posts/my-post/)` |
 
-### 图片链接转换
+### Image link conversion · 图片链接转换
 
-配置图片基础链接后，所有同步文件中的 Obsidian 图片嵌入自动转换：
+When `imageBaseURL` is set, Obsidian image embeds are converted in all synced files:
 
 ```
 ![[photo.png]]           →  ![photo.png](https://cdn.example.com/photo.png)
@@ -73,33 +81,41 @@ ln -s /path/to/obsidian-hugo-sync \
 ![[img/2024/photo.png]]  →  ![photo.png](https://cdn.example.com/img/2024/photo.png)
 ```
 
-此项独立于 wikilink 转换，对所有文件生效。
+This is independent of wikilink conversion and applies to all files.
 
-## 使用
+---
 
-- 点击左侧边栏的 🔄 图标
-- 或使用命令面板：`Hugo: 同步到 Hugo`
-- 开启文件监听后，保存笔记即自动同步
+## Usage · 使用
 
-## 双链转换规则
+- Click the 🔄 icon in the left ribbon
+- Or use the command palette: `Hugo: 同步到 Hugo`
+- With file watching enabled, simply save a note — sync happens automatically
 
-| Obsidian 语法 | Hugo 输出 | 说明 |
+---
+
+## Wikilink conversion rules · 双链转换规则
+
+| Obsidian syntax | Hugo output | Notes |
 |---|---|---|
-| `[[文章名]]` | `[frontmatter title](/slug/)` | 显示目标文章 title |
-| `[[非公开笔记]]` | `非公开笔记` | 未匹配到 slug → 纯文本，避免死链 |
-| `[[文章名#标题]]` | `[标题](/slug/#标题)` | 锚点链接，显示标题文字 |
-| `[[文章名\|别名]]` | `[别名](/slug/)` | 别名优先于默认显示 |
+| `[[post-name]]` | `[frontmatter title](/slug/)` | Displays the target post's `title` |
+| `[[private-note]]` | `private-note` | Falls back to plain text when no slug match (no dead links) |
+| `[[post#heading]]` | `[heading](/slug/#heading)` | Anchor link; displays heading text only |
+| `[[post\|alias]]` | `[alias](/slug/)` | Custom alias takes priority |
 
-> 锚点一致性：Obsidian 的 `#标题` 必须与 Hugo Goldmark 生成的 HTML ID 一致。建议在 Markdown 中使用 `## 标题 {#标题}` 语法显式指定。
+> **Anchor consistency:** Obsidian's `#heading` must match the HTML ID generated by Hugo Goldmark. Use `## heading {#heading}` syntax in Markdown to explicitly set the ID.
 
-## 开发
+---
+
+## Development · 开发
 
 ```bash
 npm install
-npm run dev    # 开发模式（单次构建）
-npm run build  # 生产构建
+npm run dev    # single build
+npm run build  # production build
 ```
 
-## 协议
+---
+
+## License · 协议
 
 [GPL v3](LICENSE)
