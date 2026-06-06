@@ -1,0 +1,24 @@
+{
+  "name": "obsidian-hugo-sync",
+  "version": "1.0.0",
+  "description": "一键同步 Obsidian 笔记到 Hugo 博客，支持双链转换",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "node esbuild.config.mjs production"
+  },
+  "keywords": [
+    "obsidian",
+    "hugo",
+    "sync",
+    "wikilink"
+  ],
+  "author": "M.Chan",
+  "license": "GPL-3.0-only",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "esbuild": "^0.20.0",
+    "obsidian": "^1.4.0",
+    "typescript": "^5.4.0"
+  }
+}

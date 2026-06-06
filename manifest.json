@@ -1,0 +1,10 @@
+{
+  "id": "obsidian-hugo-sync",
+  "name": "Hugo Sync",
+  "version": "1.0.0",
+  "minAppVersion": "1.4.0",
+  "description": "一键同步 Obsidian 笔记到 Hugo 博客，支持双链转换",
+  "author": "M.Chan",
+  "authorUrl": "https://lxooo.com",
+  "isDesktopOnly": true
+}
