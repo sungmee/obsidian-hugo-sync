@@ -2,11 +2,11 @@
 
 One-click sync from Obsidian to Hugo — wikilink conversion, image link conversion, and automatic file watching.
 
-一键同步 Obsidian 笔记到 Hugo 博客，支持双链转换、图片链接转换与文件自动监听。
+[中文版本](README.zh.md)
 
 ---
 
-## Features · 功能
+## Features
 
 - **One-click sync** — click the ribbon icon or use the command palette to sync notes to Hugo's `content/` directory
 - **Wikilink conversion** — `[[wikilink]]` → Hugo standard link format
@@ -19,9 +19,9 @@ One-click sync from Obsidian to Hugo — wikilink conversion, image link convers
 
 ---
 
-## Installation · 安装
+## Installation
 
-### Build from source · 从源码构建
+### Build from source
 
 ```bash
 git clone https://github.com/sungmee/obsidian-hugo-sync.git
@@ -40,7 +40,7 @@ Then copy `main.js` and `manifest.json` into your vault's `.obsidian/plugins/obs
 
 Enable **Hugo Sync** in Settings → Community plugins.
 
-### Symlink (recommended for development) · symlink 方式
+### Symlink (recommended for development)
 
 ```bash
 ln -s /path/to/obsidian-hugo-sync \
@@ -49,19 +49,19 @@ ln -s /path/to/obsidian-hugo-sync \
 
 ---
 
-## Settings · 设置项
+## Settings
 
-| Setting · 设置 | Default · 默认值 | Description · 说明 |
+| Setting | Default | Description |
 |---|---|---|
-| Source directory · 源目录 | *(empty)* | Hugo post source directory inside the vault, e.g. `50-output/lxooo.com` |
-| Hugo content directory · Hugo content 目录 | *(empty)* | Absolute path to your Hugo project's `content/` directory |
-| Convert non-posts wikilinks · 非 posts 目录双链转换 | Off | Whether to also convert wikilinks in `about/`, `archives/`, `tags/`, etc. |
-| Permalink format · 永久链接格式 | `/:slug/` | URL format for wikilink output; `:slug` is replaced with the post slug |
-| Image base URL · 图片基础链接 | *(empty)* | Base URL for image links; leave empty to skip image conversion |
-| File watching · 文件监听 | On | Auto-sync when files in the source directory change |
-| Debounce seconds · 防抖间隔 | `10` | Wait time (seconds) after the last change before triggering sync |
+| Source directory | *(empty)* | Hugo post source directory inside the vault, e.g. `50-output/lxooo.com` |
+| Hugo content directory | *(empty)* | Absolute path to your Hugo project's `content/` directory |
+| Convert non-posts wikilinks | Off | Whether to also convert wikilinks in `about/`, `archives/`, `tags/`, etc. |
+| Permalink format | `/:slug/` | URL format for wikilink output; `:slug` is replaced with the post slug |
+| Image base URL | *(empty)* | Base URL for image links; leave empty to skip image conversion |
+| File watching | On | Auto-sync when files in the source directory change |
+| Debounce seconds | `10` | Wait time (seconds) after the last change before triggering sync |
 
-### Permalink format · 永久链接格式
+### Permalink format
 
 Use `:slug` as a placeholder for the post slug.
 
@@ -71,7 +71,7 @@ Use `:slug` as a placeholder for the post slug.
 | `posts = '/:slug.html'` | `/:slug.html` | `[title](/my-post.html)` |
 | `posts = '/posts/:slug/'` | `/posts/:slug/` | `[title](/posts/my-post/)` |
 
-### Image link conversion · 图片链接转换
+### Image link conversion
 
 When `imageBaseURL` is set, Obsidian image embeds are converted in all synced files:
 
@@ -85,7 +85,7 @@ This is independent of wikilink conversion and applies to all files.
 
 ---
 
-## Usage · 使用
+## Usage
 
 - Click the 🔄 icon in the left ribbon
 - Or use the command palette: `Hugo: 同步到 Hugo`
@@ -93,7 +93,7 @@ This is independent of wikilink conversion and applies to all files.
 
 ---
 
-## Wikilink conversion rules · 双链转换规则
+## Wikilink conversion rules
 
 | Obsidian syntax | Hugo output | Notes |
 |---|---|---|
@@ -106,7 +106,7 @@ This is independent of wikilink conversion and applies to all files.
 
 ---
 
-## Development · 开发
+## Development
 
 ```bash
 npm install
@@ -116,6 +116,6 @@ npm run build  # production build
 
 ---
 
-## License · 协议
+## License
 
 [GPL v3](LICENSE)
