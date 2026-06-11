@@ -2,10 +2,11 @@
   "name": "obsidian-hugo-sync",
   "version": "1.0.0",
   "description": "一键同步 Obsidian 笔记到 Hugo 博客，支持双链转换",
-  "main": "main.js",
+  "main": "dist/main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
-    "build": "node esbuild.config.mjs production"
+    "build": "node esbuild.config.mjs production",
+    "clean": "rm -rf dist"
   },
   "keywords": [
     "obsidian",
